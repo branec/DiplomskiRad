@@ -1,0 +1,219 @@
+﻿@model Users.Models.OrganisationOverviewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Moj racun</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Latitude)
+    @Html.HiddenFor(model => model.Longitude)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8 inblock">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2 float-left" })
+        <div class="col-md-8 inblock">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdTypeOrganisation, "IdTypeOrganisation", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8 inblock">
+            @Html.DropDownList("IdTypeOrganisation", Model.TypeOrganisationList, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IdTypeOrganisation, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div id="locationField">
+        <input id="autocomplete"
+               placeholder="Enter your address"
+               onFocus="geolocate()"
+               type="text" />
+    </div>*@
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Input">Unesite Adresu:</label>
+        <div class="col-md-8 inblock">
+            <input id="autocomplete"
+                   class="form-control"
+                   placeholder="Enter your address"
+                   onFocus="geolocate()"
+                   type="text" />
+        
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8 inblock">
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8 inblock">
+            <input class="form-control text-box single-line" id="PostalCode" name="PostalCode" type="text" value="@Model.PostalCode">
+            @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8 inblock">
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8 inblock">
+            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8 inblock">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8 inblock">
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Web, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8 inblock">
+            @Html.EditorFor(model => model.Web, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Web, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PerDayWorkingHours, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2 inblock">
+            @Html.EditorFor(model => model.PerDayWorkingHours, new { htmlAttributes = new { @class = "form-control", @onclick = "showWorkingDays()" } })
+            @Html.ValidationMessageFor(model => model.PerDayWorkingHours, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div id="org-work-hour">
+        <div class="form-group d-inline">
+            @Html.LabelFor(model => model.WorkingHoursStart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2 inblock">
+                <input class="form-control text-box single-line" data-val="true" data-val-date="The field WorkingHoursStart must be a date." id="WorkingHoursStart" name="WorkingHoursStart" type="time" value="@(Model.WorkingHoursStart.HasValue?Model.WorkingHoursStart.Value.ToString("hh:mm"):"")">
+                @Html.ValidationMessageFor(model => model.WorkingHoursStart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group d-inline">
+            @Html.LabelFor(model => model.WorkingHoursEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2 inblock">
+                <input class="form-control text-box single-line" data-val="true" data-val-date="The field WorkingHoursEnd must be a date." id="WorkingHoursEnd" name="WorkingHoursEnd" type="time" value="@(Model.WorkingHoursEnd.HasValue?Model.WorkingHoursEnd.Value.ToString("hh:mm"):"")">
+                @Html.ValidationMessageFor(model => model.WorkingHoursEnd, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div id="org-work-perday">
+        <div class="d-block">
+            <div class="form-group d-inline">
+                @Html.LabelFor(model => model.WeekWorkingHoursStart, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2 inblock">
+                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field WeekWorkingHoursStart must be a date." id="WeekWorkingHoursStart" name="WeekWorkingHoursStart" type="time" value="@(Model.WeekWorkingHoursStart.HasValue?Model.WeekWorkingHoursStart.Value.ToString("hh:mm"):"")">
+                    @Html.ValidationMessageFor(model => model.WeekWorkingHoursStart, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group d-inline">
+                @Html.LabelFor(model => model.WeekWorkingHoursEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2 inblock">
+                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field WeekWorkingHoursEnd must be a date." id="WeekWorkingHoursEnd" name="WeekWorkingHoursEnd" type="time" value="@(Model.WeekWorkingHoursEnd.HasValue?Model.WeekWorkingHoursEnd.Value.ToString("hh:mm"):"")">
+                    @Html.ValidationMessageFor(model => model.WeekWorkingHoursEnd, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <div class="d-block">
+            <div class="form-group d-inline">
+                @Html.LabelFor(model => model.SatWorkingHoursStart, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2 inblock">
+                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field SatWorkingHoursStart must be a date." id="SatWorkingHoursStart" name="SatWorkingHoursStart" type="time" value="@(Model.SatWorkingHoursStart.HasValue?Model.SatWorkingHoursStart.Value.ToString("hh:mm"):"")">
+                    @Html.ValidationMessageFor(model => model.SatWorkingHoursStart, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group d-inline">
+                @Html.LabelFor(model => model.SatWorkingHoursEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2 inblock">
+                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field SatWorkingHoursEnd must be a date." id="SatWorkingHoursEnd" name="SatWorkingHoursEnd" type="time" value="@(Model.SatWorkingHoursEnd.HasValue?Model.SatWorkingHoursEnd.Value.ToString("hh:mm"):"")">
+                    @Html.ValidationMessageFor(model => model.SatWorkingHoursEnd, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="d-block">
+            <div class="form-group d-inline">
+                @Html.LabelFor(model => model.SunWorkingHoursStart, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2 inblock">
+                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field SunWorkingHoursStart must be a date." id="SunWorkingHoursStart" name="SunWorkingHoursStart" type="time" value="@(Model.SunWorkingHoursStart.HasValue?Model.SunWorkingHoursStart.Value.ToString("hh:mm"):"")">
+                    @Html.ValidationMessageFor(model => model.SunWorkingHoursStart, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group d-inline">
+                @Html.LabelFor(model => model.SunWorkingHoursEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2 inblock">
+                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field SunWorkingHoursEnd must be a date." id="SunWorkingHoursEnd" name="SunWorkingHoursEnd" type="time" value="@(Model.SunWorkingHoursEnd.HasValue?Model.SunWorkingHoursEnd.Value.ToString("hh:mm"):"")">
+                    @Html.ValidationMessageFor(model => model.SunWorkingHoursEnd, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+ 
+
+
+
+  
+
+    </div>
+
+	<div class="form-group">
+		<div class="d-md-inline">
+			@Html.ActionLink("Ucitavanje slika", "PictureUpload")
+		</div>
+		<div class="d-md-inline">
+			<input type="submit" value="Save" class="btn btn-default" />
+		</div>
+	</div>
+</div>
+}
+
+
+
+

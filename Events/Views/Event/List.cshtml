@@ -1,0 +1,105 @@
+﻿@model PagedList.IPagedList<Data.Models.Event>
+@using PagedList.Mvc;
+@{
+	ViewBag.Title = "List";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+	<div class="row">
+
+		<!-- Blog Entries Column -->
+		<div class="col-md-8">
+
+			@foreach (var item in Model)
+			{
+				<div>
+					@item.Id
+				</div>
+			}
+
+			<br />
+			Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+			@Html.PagedListPager(Model, page => Url.Action("List",
+				new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+		</div>
+
+		<!-- Sidebar Widgets Column -->
+		<div class="col-md-4">
+
+			<!-- Search Widget -->
+			<div class="card my-4">
+				<h5 class="card-header">Search</h5>
+				<div class="card-body">
+					@using (Html.BeginForm("List", "Event", FormMethod.Get))
+					{
+						<p>
+							Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+							<input type="submit" value="Search" />
+						</p>
+					}
+					@*<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search for...">
+						<span class="input-group-btn">
+							<button class="btn btn-secondary" type="button">Go!</button>
+						</span>
+					</div>*@
+				</div>
+			</div>
+
+			<!-- Categories Widget -->
+			<div class="card my-4">
+				<h5 class="card-header">Categories</h5>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-6">
+							<ul class="list-unstyled mb-0">
+								@*@foreach (var item in Model.EventTypes)
+								{
+									<li>
+										<a href="#">@item.Name</a>
+									</li>
+								}*@
+							</ul>
+						</div>
+						@*<div class="col-lg-6">
+							<ul class="list-unstyled mb-0">
+								<li>
+									<a href="#">JavaScript</a>
+								</li>
+								<li>
+									<a href="#">CSS</a>
+								</li>
+								<li>
+									<a href="#">Tutorials</a>
+								</li>
+							</ul>
+						</div>*@
+					</div>
+				</div>
+			</div>
+
+			<!-- Side Widget -->
+			<div class="card my-4">
+				<h5 class="card-header">Sort</h5>
+				<div class="card-body">
+					<div class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+						<div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+							@Html.ActionLink("Last Name", "List", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+							@Html.ActionLink("Enrollment Date", "List", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+							<a class="dropdown-item" href="#">Action</a>
+							<a class="dropdown-item" href="#">Another action</a>
+							<a class="dropdown-item" href="#">Something else here</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Separated link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+

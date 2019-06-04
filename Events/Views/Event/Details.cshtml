@@ -1,0 +1,212 @@
+﻿@model Data.Models.Event
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+	<div class="jumbotron" style="margin-bottom: 0;">
+		@if (Model.Pictures.Count > 0)
+		{
+			<div class="imgBox"><img src="@Url.Action( "Get", "Picture", new { pictureId = Model.Pictures.ElementAt(0).Id} )" /></div>
+			<ul class="thumb">
+				@foreach (var item in Model.Pictures)
+				{
+					<li>
+						<a href="@Url.Action( "Get", "Picture", new { pictureId = item.Id} )" target="imgBox"><img src="@Url.Action( "Get", "Picture", new { pictureId = item.Id} )" width="120px" /></a>
+					</li>
+				}
+
+			</ul>
+
+
+		}
+		<div class="row">
+			<div class="col-lg-9"><h1 class="display-3">@Model.Name</h1></div>
+			<div class="col">
+				<a id="interestring-button-@Model.Id" class="btn btn-primary visible-sm-inline-block" style="margin-right:5px; background-color:darkseagreen;color:white; float:right; margin-top:15px;" onclick="increaseInteresting(@Model.Id)">Zanimljiv | <div id="interesting-@Model.Id" style="display: inline-block;">@Model.Interesting</div></a>
+			</div>
+		</div>
+
+		<p class="lead">@Model.Description</p>
+		<div class="row">
+			<div class="col" style="padding:0px;">
+				<div class="alert @(Model.Wifi.Value?"alert-danger":"alert-success")">
+					<div style="text-align:center;">Internet</div>
+				</div>
+			</div>
+			<div class="col" style="padding:0px;">
+				<div class="alert @(Model.Smoking.Value?"alert-danger":"alert-success")">
+					<div style="text-align:center;">Pusenje</div>
+				</div>
+			</div>
+			<div class="col" style="padding:0px;">
+				<div class="alert @(Model.Parking.Value?"alert-danger":"alert-success")">
+					<div style="text-align:center;">Parking</div>
+				</div>
+			</div>
+		</div>
+		<hr class="my-4">
+		<div class="row">
+			<div class="col">
+				<div>Organizira:</div>
+				<div>@Model.Organisation.Name</div>
+				<div>Vrsta:</div>
+				<div>@Model.TypeEvent.Name</div>
+			</div>
+			<div class="col">
+				<div>Lokacija:</div>
+				<div>@Model.Location.Address</div>
+				<div>@Model.Location.City, @Model.Location.PostalCode</div>
+				<div>@Model.Location.Country</div>
+
+			</div>
+		</div>
+
+		<div class="row" style="margin-top: 50px;">
+			<h5 style="margin: 0px auto;">@Model.TimeStart.ToString("dddd, dd MMMM yyyy hh:mm", new System.Globalization.CultureInfo("hr-HR")) - @Model.TimeEnd.ToString("dddd, dd MMMM yyyy hh:mm", new System.Globalization.CultureInfo("hr-HR")) </h5>
+
+
+			@if (Model.MoreDayEvent)
+			{
+				<table style="margin: 0px auto; width: 50%; margin-top: 50px;" class="table table-hover">
+					<tbody>
+						@foreach (var item in Model.EventDates)
+						{
+							<tr>
+								<td>@item.DateStart.ToString("dddd", new System.Globalization.CultureInfo("hr-HR"))</td>
+								<td>@item.DateStart.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("hr-HR"))</td>
+								<td>@item.DateStart.ToString("hh:mm", new System.Globalization.CultureInfo("hr-HR"))</td>
+								<td>@item.DateEnd.ToString("hh:mm", new System.Globalization.CultureInfo("hr-HR"))</td>
+							</tr>
+						}
+					</tbody>
+
+				</table>
+
+
+			}
+
+		</div>
+	</div>
+<div id="map" style="height: 200px;"></div>
+@if (Model.NoTickets == false)
+{
+	<div class="jumbotron" style="margin-bottom: 0;">
+		<h3>Karte</h3>
+		@if (Model.ThirdPartyTickets)
+		{
+			<div>Dostupne na webu:</div>
+			<h5 style="margin: 0px auto; width:25%;">@Model.ThirdPartyTicketsWeb</h5>
+
+		}
+		else
+		{
+			<table style="margin: 0px auto; width: 50%;" class="table table-hover">
+				<tbody>
+					@foreach (var item in Model.Tickets)
+					{
+						<tr style="">
+							<td>@item.Name</td>
+							<td>
+								@if (@item.DiscountPrice.Value > 0)
+								{
+									<div style="float:right;">@item.DiscountPrice HRK</div>
+									<div style="text-decoration:line-through; float: right;">@item.Price HRK</div>
+
+								}
+								else
+								{
+									<div style="float:right;">@item.Price HRK</div>
+								}
+							</td>
+						</tr>
+
+
+					}
+
+				</tbody>
+			</table>
+			<button type="button" class="btn btn-primary" style="float:right;"><a href="@Url.Action("Reservation","Event",new { IdEvent = Model.Id })" style="color:white;">Rezerviraj</a></button>
+
+		}
+	</div>
+}
+<div class="jumbotron" style="margin-top: 15px;">
+	<div class="row">
+		<div class="col">
+			<h3>Kontakt</h3>
+			<div>Web mjesto: @Model.WebUrl</div>
+			<div>Email: @Model.Email</div>
+			<div>Telefon: @Model.Phone</div>
+		</div>
+		<div class="col">
+			<button type="button" class="btn btn-primary" style="float:right;"><a href="@Url.Action("Message","Event",new { IdEvent = Model.Id })" style="color:white;">Posalji poruku</a></button>
+		</div>
+	</div>
+</div>
+<div class="jumbotron" style="background-color:aliceblue;">
+	<h3>Komentari</h3>
+
+	<table style="margin: 0px auto; width: 50%;" class="table table-hover">
+		<tbody id="comment-table">
+			@foreach (var item in Model.ReviewEvents)
+			{
+			<tr>
+				<td>
+					<div>Ocjena: @item.Stars</div>
+					<p class="text-muted">@item.Comment</p>
+				</td>
+			</tr>
+				
+			}
+		</tbody>
+	</table>
+
+		
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label for="exampleSelect1">Ocjena</label>
+					<select class="form-control" id="stars-select">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label class="col-form-label col-form-label-lg" for="inputLarge">Komentar</label>
+					<input class="form-control form-control-lg" type="text" placeholder="Ovdje upisite svoj komentar" id="comment-input">
+				</div>
+			</div>
+
+		</div>
+		<button type="button" class="btn btn-primary" style="float:right;" onclick="addComent(@Model.Id)">Komentiraj</button>
+
+
+
+</div>
+
+
+
+
+<script>
+
+	function initMap() {
+		var uluru = { lat: @Model.Location.Lat.Value, lng: @Model.Location.Lng.Value };
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 14,
+			center: uluru
+		});
+		var marker = new google.maps.Marker({
+			position: uluru,
+			map: map
+		});
+	}
+
+</script>
+<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3pmLeMb4oLA4Xqm9fmjsc0RDZr3MoGPA&amp;callback=initMap">
+</script>

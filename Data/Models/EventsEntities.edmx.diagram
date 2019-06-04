@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b4f4065568f94d3a9e52addb81f0ffb8" Name="Diagram1">
+        <EntityTypeShape EntityType="EventsModel.CreditCard" Width="1.5" PointX="8.25" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.Event" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.EventDate" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.Location" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.Message" Width="1.5" PointX="5.25" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.Organisation" Width="1.5" PointX="6" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.Picture" Width="1.5" PointX="11.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.ReviewEvent" Width="1.5" PointX="5.25" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.ReviewOrganisation" Width="1.5" PointX="8.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.Ticket" Width="1.5" PointX="5.25" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.TicketInventory" Width="1.5" PointX="7.5" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.TicketReservation" Width="1.5" PointX="10.5" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.TypeEvent" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.TypeOrganisation" Width="1.5" PointX="3.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="EventsModel.FK_TicketReservation_CreditCard" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Event_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Event_Organisation" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Event_TypeEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_EventDate_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Message_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Picture_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Review_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Ticket_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Organisation_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Organisation_TypeOrganisation" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_Picture_Organisation" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_ReviewOrganisation_Organisation" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_TicketInventory_Ticket" ManuallyRouted="false" />
+        <AssociationConnector Association="EventsModel.FK_TicketReservation_Ticket" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

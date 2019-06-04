@@ -1,0 +1,107 @@
+﻿@model Users.Models.AddTicketModel
+@{
+	ViewBag.Title = "Create4";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<table class="w-100">
+				<thead>
+					<tr>
+						<th>
+							Naziv
+						</th>
+						<th>
+							Cijena (HRK)
+						</th>
+						<th>
+							Diskontna cijena (HRK)
+						</th>
+						<th>
+							Kolicina
+						</th>
+						<th>
+							Izbrisi
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (Users.Models.TicketViewModel item in Model.Tickets)
+					{
+						<tr>
+							<td>
+								@item.Name
+							</td>
+							<td>
+								@item.Price
+							</td>
+							<td>
+								@item.DiscountPrice
+							</td>
+							<td>
+								@item.StockQuantity
+							</td>
+							<td>
+								@Html.ActionLink("Izbrisi", "DeleteTicket", new { ticketId = item.Id, eventId = Model.EventId })
+							</td>
+						</tr>
+					}
+
+				</tbody>
+			</table>
+			</div>
+		</div>
+
+			@using (Html.BeginForm())
+			{
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.EventId)
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Vrijeme</h6>
+					</div>
+					<div class="card-body">
+
+						<div class="form-group ">
+							@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-8 d-inline-block">
+								@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+							</div>
+						</div>
+
+						<div class="form-group ">
+							@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-4 d-inline-block">
+								@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+							</div>
+							<p class="d-inline-block">HRK</p>
+						</div>
+
+						<div class="form-group ">
+							@Html.LabelFor(model => model.DiscountPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-4 d-inline-block">
+								@Html.EditorFor(model => model.DiscountPrice, new { htmlAttributes = new { @class = "form-control" } })
+							</div>
+							<p class="d-inline-block">HRK</p>
+						</div>
+
+						<div class="form-group ">
+							@Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+							<div class="col-md-4 d-inline-block">
+								@Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+								@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="form-group"  style="float:right; margin: 10px;">
+						@Html.ActionLink("Kraj", "Index", null, htmlAttributes: new { @class = "btn btn-default bg-primary white-text" })
+						<input type="submit" value="Spremi" class="btn btn-default bg-primary white-text" />
+				</div>
+		
+			}
+

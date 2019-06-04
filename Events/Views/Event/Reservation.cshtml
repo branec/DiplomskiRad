@@ -1,0 +1,82 @@
+﻿@model Events.Models.ReservationModelView
+@{
+	ViewBag.Title = "Reservation";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	@Html.HiddenFor(model => model.IdEvent)
+
+	<div class="jumbotron">
+
+		@if (!String.IsNullOrWhiteSpace(Model.ValidationMessage))
+		{
+			<div class="alert alert-dismissible alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>@Model.ValidationMessage</strong>
+			</div>
+
+		}
+
+		<div class="form-group">
+			<label class="control-label col-md-2" for="IdTicket">Ulaznica</label>
+			<div class="col-md-8 d-inline-block">
+				@Html.DropDownList("IdTicket", null, htmlAttributes: new { @class = "form-control" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-md-2" for="IdTicket">Ime i prezime</label>
+			<div class="col-md-8 d-inline-block">
+				@Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-md-2" for="IdTicket">Email</label>
+			<div class="col-md-8 d-inline-block">
+				@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-md-2" for="IdTicket">Kolicina</label>
+			<div class="col-md-8 d-inline-block">
+				@Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<style>
+			.demo-container {
+				width: 100%;
+				max-width: 350px;
+				margin: 50px auto;
+			}
+
+			form {
+				margin: 30px;
+			}
+
+			input {
+				width: 200px;
+				margin: 10px auto;
+				display: block;
+			}
+		</style>
+		<div class="demo-container">
+			<div class="card-wrapper"></div>
+			<input placeholder="Card number" type="tel" name="number" id="number" class="form-control">
+			<input placeholder="Full name" type="text" name="name" id="name" class="form-control">
+			<input placeholder="MM/YY" type="tel" name="expiry" id="expiry" class="form-control">
+			<input placeholder="CVC" type="number" name="cvc" id="cvc" class="form-control">
+		</div>
+
+	
+				<input type="submit" value="Rezerviraj" class="btn btn-success" style="float:right;"/>
+		
+	</div>
+}
+

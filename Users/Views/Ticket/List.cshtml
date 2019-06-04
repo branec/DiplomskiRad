@@ -1,0 +1,78 @@
+﻿@model PagedList.IPagedList<Users.Models.TicketListModel>
+@using PagedList.Mvc;
+	<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+	ViewBag.Title = "List";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List</h2>
+
+@foreach (var item in Model)
+{
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">@item.NameEvent</h6>
+		</div>
+		<div class="card-body">
+			@if (item.Tickets.Count > 0)
+			{
+				<table class="table">
+					<tr>
+						<th>
+							Naziv
+						</th>
+						<th>
+							Cijena
+						</th>
+						<th>
+							Diskonta cijena
+						</th>
+						<th>
+							Stanje
+						</th>
+						<th>
+							Rezervirano
+						</th>
+					</tr>
+					@foreach (var ticket in item.Tickets)
+					{
+						<tr>
+							<td>
+								@ticket.Name
+							</td>
+							<td>
+								@ticket.Price
+							</td>
+							<td>
+								@ticket.DiscountPrice
+							</td>
+							<td>
+								@ticket.StockQuantity
+							</td>
+							<td>
+								@ticket.ReservedQuantity
+							</td>
+						</tr>
+
+					}
+				</table>
+
+
+			}
+			else
+			{
+				<p>Za ovaj dogadjaj nisu definirane karte</p>
+
+			}
+
+		</div>
+	</div>
+
+}
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("List",
+	new { page }))

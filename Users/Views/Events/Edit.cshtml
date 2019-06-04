@@ -1,0 +1,291 @@
+﻿@model Users.Models.EventModel
+
+@{
+	ViewBag.Title = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800">Edit dogadaja</h1>
+</div>
+
+
+<div class="row">
+	<div class="col-lg-4 mb-4">
+		<div class="card bg-primary text-white shadow">
+			<div class="card-body">
+				@Html.ActionLink("Izmjeni slike", "Create2", new { eventId = Model.Id },  htmlAttributes: new { @class = "white-text" })
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4 mb-4">
+		<div class="card bg-primary text-white shadow">
+			<div class="card-body">
+				@Html.ActionLink("Izmjeni vrijeme odrzavanja", "Create3", new { eventId = Model.Id },  htmlAttributes: new { @class = "white-text" })
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-4 mb-4">
+		<div class="card bg-primary text-white shadow">
+			<div class="card-body">
+				@Html.ActionLink("Izmjeni karte", "Create4", new { eventId = Model.Id },  htmlAttributes: new { @class = "white-text" })
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.Id)
+
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Osnovno</h6>
+			</div>
+			<div class="card-body">
+				<div class="form-group">
+					@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 d-inline-block">
+						@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2 float-left" })
+					<div class="col-md-8 d-inline-block">
+						@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(model => model.IdTypeEvent, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 d-inline-block">
+						@Html.DropDownList("IdTypeEvent", null, htmlAttributes: new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.IdTypeEvent, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Lokacija</h6>
+			</div>
+			<div class="card-body">
+				@Html.HiddenFor(model => model.Latitude)
+				@Html.HiddenFor(model => model.Longitude)
+
+				<div class="form-group">
+					<label class="control-label col-md-2" for="Input">Unesite Adresu:</label>
+					<div class="col-md-8 inblock">
+						<input id="autocomplete"
+							   class="form-control"
+							   placeholder="Enter your address"
+							   onFocus="geolocate()"
+							   type="text" />
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 inblock">
+						@Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 inblock">
+						<input class="form-control text-box single-line" id="PostalCode" name="PostalCode" type="text" value="@Model.PostalCode">
+						@Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 inblock">
+						@Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 inblock">
+						@Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 mb-4">
+				<div class="card bg-primary text-white shadow">
+					<div class="card-body">
+						Wifi
+						@Html.EditorFor(model => model.Wifi)
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<div class="card bg-primary text-white shadow">
+					<div class="card-body">
+						Parking
+						@Html.EditorFor(model => model.Parking)
+
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<div class="card bg-primary text-white shadow">
+					<div class="card-body">
+						Pusenje
+						@Html.EditorFor(model => model.Smoking)
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Vrijeme</h6>
+			</div>
+			<div class="card-body">
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.MoreDayEvent, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 inblock">
+						<div class="checkbox">
+							@Html.EditorFor(model => model.MoreDayEvent)
+							@Html.ValidationMessageFor(model => model.MoreDayEvent, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+
+
+				<div class="form-group ">
+					@Html.LabelFor(model => model.TimeStart, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-4 d-inline">
+						@Html.EditorFor(model => model.TimeStart, new { htmlAttributes = new { @class = "form-control date-picker", @type = "datetime-local" } })
+						@Html.ValidationMessageFor(model => model.TimeStart, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group ">
+					@Html.LabelFor(model => model.TimeEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-4 d-inline">
+						@Html.EditorFor(model => model.TimeEnd, new { htmlAttributes = new { @class = "form-control date-picker", @type = "datetime-local" } })
+						@Html.ValidationMessageFor(model => model.TimeEnd, "", new { @class = "text-danger" })
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Karte</h6>
+			</div>
+			<div class="card-body">
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.NoTickets, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 inblock">
+						<div class="checkbox">
+							@Html.EditorFor(model => model.NoTickets)
+							@Html.ValidationMessageFor(model => model.NoTickets, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+
+				<div id="create-event-time">
+					<div class="form-group">
+						@Html.LabelFor(model => model.ThirdPartyTickets, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-2 inblock">
+							<div class="checkbox">
+								@Html.EditorFor(model => model.ThirdPartyTickets)
+								@Html.ValidationMessageFor(model => model.ThirdPartyTickets, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.ThirdPartyTicketsWeb, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-8 inblock">
+							@Html.EditorFor(model => model.ThirdPartyTicketsWeb, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.ThirdPartyTicketsWeb, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+
+
+				</div>
+
+
+
+			</div>
+		</div>
+
+
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Kontakt</h6>
+			</div>
+			<div class="card-body">
+				<div class="form-group">
+					@Html.LabelFor(model => model.WebUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 inblock">
+						@Html.EditorFor(model => model.WebUrl, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.WebUrl, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 inblock">
+						@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-8 d-inline-block">
+						@Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="form-group" style="float:right; margin-right: 10px;">
+			<div class="d-md-inline">
+				@Html.ActionLink("Povratak na listu", "Index")
+			</div>
+			<div class="d-md-inline">
+				<input type="submit" value="Spremi" class="btn btn-default bg-primary white-text "  style="margin-left: 10px;"/>
+			</div>
+
+		</div>
+	</div>
+}
+<div>
+	
+</div>
+

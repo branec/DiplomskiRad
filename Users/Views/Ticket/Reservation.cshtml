@@ -1,0 +1,64 @@
+﻿@model PagedList.IPagedList<Data.Models.TicketReservation>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+	ViewBag.Title = "Reservation";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">Rezervacije</h6>
+	</div>
+	<div class="card-body">
+		<table class="table">
+			<tr>
+				<th>
+					Dogadjaj
+				</th>
+				<th>
+					Karta
+				</th>
+				<th>
+					Ime i prezime
+				</th>
+				<th>
+					Email
+				</th>
+				<th>
+					Kolicina
+				</th>
+			</tr>
+
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Ticket.Event.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Ticket.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.FullName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Email)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Quantity)
+					</td>
+				</tr>
+			}
+
+		</table>
+	</div>
+</div>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Reservation",
+	new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+

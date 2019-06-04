@@ -1,0 +1,74 @@
+﻿@model Users.Models.PicturesModel
+@{
+	ViewBag.Title = "PictureUpload";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card shadow mb-4">
+	<div class="card-body">
+		<table class="w-100">
+			<thead>
+				<tr>
+					<th>
+						Slika
+					</th>
+					<th>
+						Naziv
+					</th>
+					<th>
+						Ekstenzija
+					</th>
+					<th>
+						Izbrisi
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.Pictures)
+				{
+					<tr>
+						<td>
+							<img class="small-img" src='@Url.Action( "Get", "Picture", new { pictureId = item.Id} )' />
+						</td>
+						<td>
+							@item.Name
+						</td>
+						<td>
+							@item.Exstension
+						</td>
+						<td>
+							@Html.ActionLink("Izbrisi", "Delete", "Picture", new { pictureId = item.Id}, null)
+						</td>
+					</tr>
+				}
+
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<div id="fine-uploader-gallery"></div>
+
+<!-- Your code to create an instance of Fine Uploader and bind to the DOM/template
+====================================================================== -->
+<script>
+    var galleryUploader = new qq.FineUploader({
+        element: document.getElementById("fine-uploader-gallery"),
+        template: 'qq-template-gallery',
+        request: {
+            endpoint: '/organisation/Picture/Upload'
+        },
+        validation: {
+            allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
+        }
+    });
+</script>
+
+<div style="margin: 10px; float:right;">
+	@Html.ActionLink("Spremi", "Overview", null, htmlAttributes: new { @class = "white-text btn btn-default bg-primary m-10" })
+</div>
+
+
+

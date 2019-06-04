@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EventsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CreditCard">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CardNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ExpDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CVV" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NameSurname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="TicketReservations" Relationship="Self.FK_TicketReservation_CreditCard" FromRole="CreditCard" ToRole="TicketReservation" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdLocation" Type="Int32" />
+    <Property Name="IdOrganisation" Type="Int32" Nullable="false" />
+    <Property Name="IdTypeEvent" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+    <Property Name="TimeStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TimeEnd" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Wifi" Type="Boolean" />
+    <Property Name="Parking" Type="Boolean" />
+    <Property Name="Smoking" Type="Boolean" />
+    <Property Name="ThirdPartyTickets" Type="Boolean" Nullable="false" />
+    <Property Name="ThirdPartyTicketsWeb" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="NoTickets" Type="Boolean" Nullable="false" />
+    <Property Name="Interesting" Type="Int32" />
+    <Property Name="Featured" Type="Boolean" />
+    <Property Name="WebUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MoreDayEvent" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Location" Relationship="Self.FK_Event_Location" FromRole="Event" ToRole="Location" />
+    <NavigationProperty Name="Organisation" Relationship="Self.FK_Event_Organisation" FromRole="Event" ToRole="Organisation" />
+    <NavigationProperty Name="TypeEvent" Relationship="Self.FK_Event_TypeEvent" FromRole="Event" ToRole="TypeEvent" />
+    <NavigationProperty Name="EventDates" Relationship="Self.FK_EventDate_Event" FromRole="Event" ToRole="EventDate" />
+    <NavigationProperty Name="Messages" Relationship="Self.FK_Message_Event" FromRole="Event" ToRole="Message" />
+    <NavigationProperty Name="ReviewEvents" Relationship="Self.FK_Review_Event" FromRole="Event" ToRole="ReviewEvent" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_Event" FromRole="Event" ToRole="Ticket" />
+  </EntityType>
+  <EntityType Name="EventDate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdEvent" Type="Int32" Nullable="false" />
+    <Property Name="DateStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateEnd" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Event" Relationship="Self.FK_EventDate_Event" FromRole="EventDate" ToRole="Event" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Lng" Type="Decimal" Precision="11" Scale="8" />
+    <Property Name="Lat" Type="Decimal" Precision="10" Scale="8" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PostalCode" Type="Int32" />
+    <NavigationProperty Name="Events" Relationship="Self.FK_Event_Location" FromRole="Location" ToRole="Event" />
+    <NavigationProperty Name="Organisations" Relationship="Self.FK_Organisation_Location" FromRole="Location" ToRole="Organisation" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Message1" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdEvent" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Event" Relationship="Self.FK_Message_Event" FromRole="Message" ToRole="Event" />
+  </EntityType>
+  <EntityType Name="Organisation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTypeOrganisation" Type="Int32" Nullable="false" />
+    <Property Name="IdLocation" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Web" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PerDayWorkingHours" Type="Boolean" Nullable="false" />
+    <Property Name="WorkingHoursStart" Type="DateTime" Precision="3" />
+    <Property Name="WorkingHoursEnd" Type="DateTime" Precision="3" />
+    <Property Name="WeekWorkingHoursStart" Type="DateTime" Precision="3" />
+    <Property Name="WeekWorkingHoursEnd" Type="DateTime" Precision="3" />
+    <Property Name="SatWorkingHoursStart" Type="DateTime" Precision="3" />
+    <Property Name="SatWorkingHoursEnd" Type="DateTime" Precision="3" />
+    <Property Name="SunWorkingHoursStart" Type="DateTime" Precision="3" />
+    <Property Name="SunWorkingHoursEnd" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Events" Relationship="Self.FK_Event_Organisation" FromRole="Organisation" ToRole="Event" />
+    <NavigationProperty Name="Location" Relationship="Self.FK_Organisation_Location" FromRole="Organisation" ToRole="Location" />
+    <NavigationProperty Name="TypeOrganisation" Relationship="Self.FK_Organisation_TypeOrganisation" FromRole="Organisation" ToRole="TypeOrganisation" />
+    <NavigationProperty Name="ReviewOrganisations" Relationship="Self.FK_ReviewOrganisation_Organisation" FromRole="Organisation" ToRole="ReviewOrganisation" />
+  </EntityType>
+  <EntityType Name="ReviewEvent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Stars" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IdEvent" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Event" Relationship="Self.FK_Review_Event" FromRole="ReviewEvent" ToRole="Event" />
+  </EntityType>
+  <EntityType Name="ReviewOrganisation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StarsService" Type="Int32" />
+    <Property Name="StarsAmbience" Type="Int32" />
+    <Property Name="StarsCleanless" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IdOrganisation" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Organisation" Relationship="Self.FK_ReviewOrganisation_Organisation" FromRole="ReviewOrganisation" ToRole="Organisation" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="DiscountPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IdEvent" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Event" Relationship="Self.FK_Ticket_Event" FromRole="Ticket" ToRole="Event" />
+    <NavigationProperty Name="TicketInventories" Relationship="Self.FK_TicketInventory_Ticket" FromRole="Ticket" ToRole="TicketInventory" />
+    <NavigationProperty Name="TicketReservations" Relationship="Self.FK_TicketReservation_Ticket" FromRole="Ticket" ToRole="TicketReservation" />
+  </EntityType>
+  <EntityType Name="TicketInventory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTicket" Type="Int32" Nullable="false" />
+    <Property Name="StockQuantity" Type="Int32" />
+    <Property Name="ReservedQuantity" Type="Int32" />
+    <NavigationProperty Name="Ticket" Relationship="Self.FK_TicketInventory_Ticket" FromRole="TicketInventory" ToRole="Ticket" />
+  </EntityType>
+  <EntityType Name="TicketReservation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTicket" Type="Int32" Nullable="false" />
+    <Property Name="IdCreditCard" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="CreditCard" Relationship="Self.FK_TicketReservation_CreditCard" FromRole="TicketReservation" ToRole="CreditCard" />
+    <NavigationProperty Name="Ticket" Relationship="Self.FK_TicketReservation_Ticket" FromRole="TicketReservation" ToRole="Ticket" />
+  </EntityType>
+  <EntityType Name="TypeEvent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Events" Relationship="Self.FK_Event_TypeEvent" FromRole="TypeEvent" ToRole="Event" />
+  </EntityType>
+  <EntityType Name="TypeOrganisation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Organisations" Relationship="Self.FK_Organisation_TypeOrganisation" FromRole="TypeOrganisation" ToRole="Organisation" />
+  </EntityType>
+  <Association Name="FK_TicketReservation_CreditCard">
+    <End Role="CreditCard" Type="Self.CreditCard" Multiplicity="1" />
+    <End Role="TicketReservation" Type="Self.TicketReservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CreditCard">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TicketReservation">
+        <PropertyRef Name="IdCreditCard" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Location">
+    <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="IdLocation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Organisation">
+    <End Role="Organisation" Type="Self.Organisation" Multiplicity="1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organisation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="IdOrganisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_TypeEvent">
+    <End Role="TypeEvent" Type="Self.TypeEvent" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeEvent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="IdTypeEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventDate_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="1" />
+    <End Role="EventDate" Type="Self.EventDate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EventDate">
+        <PropertyRef Name="IdEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="IdEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="1" />
+    <End Role="ReviewEvent" Type="Self.ReviewEvent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReviewEvent">
+        <PropertyRef Name="IdEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ticket_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="IdEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Organisation_Location">
+    <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+    <End Role="Organisation" Type="Self.Organisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Organisation">
+        <PropertyRef Name="IdLocation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Organisation_TypeOrganisation">
+    <End Role="TypeOrganisation" Type="Self.TypeOrganisation" Multiplicity="1" />
+    <End Role="Organisation" Type="Self.Organisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOrganisation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Organisation">
+        <PropertyRef Name="IdTypeOrganisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReviewOrganisation_Organisation">
+    <End Role="Organisation" Type="Self.Organisation" Multiplicity="1" />
+    <End Role="ReviewOrganisation" Type="Self.ReviewOrganisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organisation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReviewOrganisation">
+        <PropertyRef Name="IdOrganisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketInventory_Ticket">
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+    <End Role="TicketInventory" Type="Self.TicketInventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ticket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TicketInventory">
+        <PropertyRef Name="IdTicket" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketReservation_Ticket">
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+    <End Role="TicketReservation" Type="Self.TicketReservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ticket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TicketReservation">
+        <PropertyRef Name="IdTicket" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EventsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CreditCards" EntityType="Self.CreditCard" />
+    <EntitySet Name="Events" EntityType="Self.Event" />
+    <EntitySet Name="EventDates" EntityType="Self.EventDate" />
+    <EntitySet Name="Locations" EntityType="Self.Location" />
+    <EntitySet Name="Messages" EntityType="Self.Message" />
+    <EntitySet Name="Organisations" EntityType="Self.Organisation" />
+    <EntitySet Name="ReviewEvents" EntityType="Self.ReviewEvent" />
+    <EntitySet Name="ReviewOrganisations" EntityType="Self.ReviewOrganisation" />
+    <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+    <EntitySet Name="TicketInventories" EntityType="Self.TicketInventory" />
+    <EntitySet Name="TicketReservations" EntityType="Self.TicketReservation" />
+    <EntitySet Name="TypeEvents" EntityType="Self.TypeEvent" />
+    <EntitySet Name="TypeOrganisations" EntityType="Self.TypeOrganisation" />
+    <AssociationSet Name="FK_TicketReservation_CreditCard" Association="Self.FK_TicketReservation_CreditCard">
+      <End Role="CreditCard" EntitySet="CreditCards" />
+      <End Role="TicketReservation" EntitySet="TicketReservations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Location" Association="Self.FK_Event_Location">
+      <End Role="Location" EntitySet="Locations" />
+      <End Role="Event" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Organisation" Association="Self.FK_Event_Organisation">
+      <End Role="Organisation" EntitySet="Organisations" />
+      <End Role="Event" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_TypeEvent" Association="Self.FK_Event_TypeEvent">
+      <End Role="TypeEvent" EntitySet="TypeEvents" />
+      <End Role="Event" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EventDate_Event" Association="Self.FK_EventDate_Event">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="EventDate" EntitySet="EventDates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Event" Association="Self.FK_Message_Event">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Event" Association="Self.FK_Review_Event">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="ReviewEvent" EntitySet="ReviewEvents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ticket_Event" Association="Self.FK_Ticket_Event">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="Ticket" EntitySet="Tickets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Organisation_Location" Association="Self.FK_Organisation_Location">
+      <End Role="Location" EntitySet="Locations" />
+      <End Role="Organisation" EntitySet="Organisations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Organisation_TypeOrganisation" Association="Self.FK_Organisation_TypeOrganisation">
+      <End Role="TypeOrganisation" EntitySet="TypeOrganisations" />
+      <End Role="Organisation" EntitySet="Organisations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReviewOrganisation_Organisation" Association="Self.FK_ReviewOrganisation_Organisation">
+      <End Role="Organisation" EntitySet="Organisations" />
+      <End Role="ReviewOrganisation" EntitySet="ReviewOrganisations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketInventory_Ticket" Association="Self.FK_TicketInventory_Ticket">
+      <End Role="Ticket" EntitySet="Tickets" />
+      <End Role="TicketInventory" EntitySet="TicketInventories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketReservation_Ticket" Association="Self.FK_TicketReservation_Ticket">
+      <End Role="Ticket" EntitySet="Tickets" />
+      <End Role="TicketReservation" EntitySet="TicketReservations" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

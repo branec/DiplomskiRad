@@ -1,0 +1,96 @@
+﻿
+.inblock {
+display: inline-block;
+}
+
+.hidden {
+display: none;
+}
+
+#map {
+    height: 100%;
+}
+#locationField, #controls {
+    position: relative;
+    width: 480px;
+}
+
+
+.label {
+    text-align: right;
+    font-weight: bold;
+    width: 100px;
+    color: #303030;
+    font-family: "Roboto";
+}
+
+#address {
+    border: 1px solid #000090;
+    background-color: #f0f9ff;
+    width: 480px;
+    padding-right: 2px;
+}
+
+    #address td {
+        font-size: 10pt;
+    }
+
+.field {
+    width: 99%;
+}
+
+.slimField {
+    width: 80px;
+}
+
+.wideField {
+    width: 200px;
+}
+
+#locationField {
+    height: 20px;
+    margin-bottom: 2px;
+}
+
+.small-img {
+width: 30px;
+}
+
+.dash-table-row {
+height: 60px;
+}
+
+.imgBox {
+	width: fit-content;
+	margin: 50px auto 20px;
+}
+
+	.imgBox img {
+		height: 350px;
+		border: 4px solid #fff;
+		box-shadow: 0 5px 25px rgba(0,0,0,.5);
+	
+	}
+
+ul.thumb {
+	margin: 0 auto;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+	ul.thumb li {
+	list-style: none;
+	margin: 0 10px;
+
+	}
+
+		ul.thumb li img {
+			border: 4px solid #fff;
+			box-shadow: 0 5px 25px rgba(0,0,0,.5);
+		}
+
+.white-text {
+color: white;
+}

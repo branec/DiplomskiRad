@@ -1,0 +1,177 @@
+﻿@model Data.Models.Event
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Event</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Wifi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wifi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parking)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parking)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Smoking)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Smoking)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThirdPartyTickets)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThirdPartyTickets)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThirdPartyTicketsWeb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThirdPartyTicketsWeb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoTickets)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoTickets)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Interesting)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Interesting)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Featured)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Featured)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WebUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WebUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoreDayEvent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoreDayEvent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Organisation.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Organisation.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeEvent.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeEvent.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

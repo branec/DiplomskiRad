@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EventsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CreditCard">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CardNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ExpDate" Type="date" Nullable="false" />
+    <Property Name="CVV" Type="nvarchar" MaxLength="3" Nullable="false" />
+    <Property Name="NameSurname" Type="nvarchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdLocation" Type="int" />
+    <Property Name="IdOrganisation" Type="int" Nullable="false" />
+    <Property Name="IdTypeEvent" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="3000" />
+    <Property Name="TimeStart" Type="datetime" Nullable="false" />
+    <Property Name="TimeEnd" Type="datetime" Nullable="false" />
+    <Property Name="Wifi" Type="bit" />
+    <Property Name="Parking" Type="bit" />
+    <Property Name="Smoking" Type="bit" />
+    <Property Name="ThirdPartyTickets" Type="bit" Nullable="false" />
+    <Property Name="ThirdPartyTicketsWeb" Type="nvarchar" MaxLength="250" />
+    <Property Name="NoTickets" Type="bit" Nullable="false" />
+    <Property Name="Interesting" Type="int" />
+    <Property Name="Featured" Type="bit" />
+    <Property Name="WebUrl" Type="nvarchar" MaxLength="250" />
+    <Property Name="Email" Type="nvarchar" MaxLength="150" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+    <Property Name="MoreDayEvent" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EventDate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdEvent" Type="int" Nullable="false" />
+    <Property Name="DateStart" Type="datetime" Nullable="false" />
+    <Property Name="DateEnd" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Lng" Type="decimal" Precision="11" Scale="8" />
+    <Property Name="Lat" Type="decimal" Precision="10" Scale="8" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" />
+    <Property Name="City" Type="nvarchar" MaxLength="200" />
+    <Property Name="Country" Type="nvarchar" MaxLength="200" />
+    <Property Name="PostalCode" Type="int" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="300" />
+    <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Message" Type="nvarchar" MaxLength="3000" Nullable="false" />
+    <Property Name="IdEvent" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Organisation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdTypeOrganisation" Type="int" Nullable="false" />
+    <Property Name="IdLocation" Type="int" />
+    <Property Name="Description" Type="nvarchar" MaxLength="3000" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="Web" Type="nvarchar" MaxLength="250" />
+    <Property Name="PerDayWorkingHours" Type="bit" Nullable="false" />
+    <Property Name="WorkingHoursStart" Type="datetime" />
+    <Property Name="WorkingHoursEnd" Type="datetime" />
+    <Property Name="WeekWorkingHoursStart" Type="datetime" />
+    <Property Name="WeekWorkingHoursEnd" Type="datetime" />
+    <Property Name="SatWorkingHoursStart" Type="datetime" />
+    <Property Name="SatWorkingHoursEnd" Type="datetime" />
+    <Property Name="SunWorkingHoursStart" Type="datetime" />
+    <Property Name="SunWorkingHoursEnd" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ReviewEvent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Stars" Type="int" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+    <Property Name="IdEvent" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReviewOrganisation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StarsService" Type="int" />
+    <Property Name="StarsAmbience" Type="int" />
+    <Property Name="StarsCleanless" Type="int" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+    <Property Name="IdOrganisation" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="DiscountPrice" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="IdEvent" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TicketInventory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdTicket" Type="int" Nullable="false" />
+    <Property Name="StockQuantity" Type="int" />
+    <Property Name="ReservedQuantity" Type="int" />
+  </EntityType>
+  <EntityType Name="TicketReservation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdTicket" Type="int" Nullable="false" />
+    <Property Name="IdCreditCard" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypeEvent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypeOrganisation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Event_Location">
+    <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="IdLocation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Organisation">
+    <End Role="Organisation" Type="Self.Organisation" Multiplicity="1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organisation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="IdOrganisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_TypeEvent">
+    <End Role="TypeEvent" Type="Self.TypeEvent" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeEvent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="IdTypeEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventDate_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="1" />
+    <End Role="EventDate" Type="Self.EventDate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EventDate">
+        <PropertyRef Name="IdEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Message_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="1" />
+    <End Role="Message" Type="Self.Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="IdEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Organisation_Location">
+    <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+    <End Role="Organisation" Type="Self.Organisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Organisation">
+        <PropertyRef Name="IdLocation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Organisation_TypeOrganisation">
+    <End Role="TypeOrganisation" Type="Self.TypeOrganisation" Multiplicity="1" />
+    <End Role="Organisation" Type="Self.Organisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOrganisation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Organisation">
+        <PropertyRef Name="IdTypeOrganisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="1" />
+    <End Role="ReviewEvent" Type="Self.ReviewEvent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReviewEvent">
+        <PropertyRef Name="IdEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReviewOrganisation_Organisation">
+    <End Role="Organisation" Type="Self.Organisation" Multiplicity="1" />
+    <End Role="ReviewOrganisation" Type="Self.ReviewOrganisation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organisation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReviewOrganisation">
+        <PropertyRef Name="IdOrganisation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ticket_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="IdEvent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketInventory_Ticket">
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+    <End Role="TicketInventory" Type="Self.TicketInventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ticket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TicketInventory">
+        <PropertyRef Name="IdTicket" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketReservation_CreditCard">
+    <End Role="CreditCard" Type="Self.CreditCard" Multiplicity="1" />
+    <End Role="TicketReservation" Type="Self.TicketReservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CreditCard">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TicketReservation">
+        <PropertyRef Name="IdCreditCard" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketReservation_Ticket">
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
+    <End Role="TicketReservation" Type="Self.TicketReservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ticket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TicketReservation">
+        <PropertyRef Name="IdTicket" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EventsModelStoreContainer">
+    <EntitySet Name="CreditCard" EntityType="Self.CreditCard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EventDate" EntityType="Self.EventDate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Organisation" EntityType="Self.Organisation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReviewEvent" EntityType="Self.ReviewEvent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReviewOrganisation" EntityType="Self.ReviewOrganisation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TicketInventory" EntityType="Self.TicketInventory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TicketReservation" EntityType="Self.TicketReservation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeEvent" EntityType="Self.TypeEvent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeOrganisation" EntityType="Self.TypeOrganisation" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Event_Location" Association="Self.FK_Event_Location">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Organisation" Association="Self.FK_Event_Organisation">
+      <End Role="Organisation" EntitySet="Organisation" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_TypeEvent" Association="Self.FK_Event_TypeEvent">
+      <End Role="TypeEvent" EntitySet="TypeEvent" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EventDate_Event" Association="Self.FK_EventDate_Event">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="EventDate" EntitySet="EventDate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Message_Event" Association="Self.FK_Message_Event">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="Message" EntitySet="Message" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Organisation_Location" Association="Self.FK_Organisation_Location">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="Organisation" EntitySet="Organisation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Organisation_TypeOrganisation" Association="Self.FK_Organisation_TypeOrganisation">
+      <End Role="TypeOrganisation" EntitySet="TypeOrganisation" />
+      <End Role="Organisation" EntitySet="Organisation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Event" Association="Self.FK_Review_Event">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="ReviewEvent" EntitySet="ReviewEvent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReviewOrganisation_Organisation" Association="Self.FK_ReviewOrganisation_Organisation">
+      <End Role="Organisation" EntitySet="Organisation" />
+      <End Role="ReviewOrganisation" EntitySet="ReviewOrganisation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ticket_Event" Association="Self.FK_Ticket_Event">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="Ticket" EntitySet="Ticket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketInventory_Ticket" Association="Self.FK_TicketInventory_Ticket">
+      <End Role="Ticket" EntitySet="Ticket" />
+      <End Role="TicketInventory" EntitySet="TicketInventory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketReservation_CreditCard" Association="Self.FK_TicketReservation_CreditCard">
+      <End Role="CreditCard" EntitySet="CreditCard" />
+      <End Role="TicketReservation" EntitySet="TicketReservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketReservation_Ticket" Association="Self.FK_TicketReservation_Ticket">
+      <End Role="Ticket" EntitySet="Ticket" />
+      <End Role="TicketReservation" EntitySet="TicketReservation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,242 @@
+﻿@model Data.Models.Event
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+	<div>
+		@if (Model.Pictures.Count > 0)
+		{
+			<div class="imgBox"><img src="@Url.Action( "Get", "Picture", new { pictureId = Model.Pictures.ElementAt(0).Id} )" /></div>
+			<ul class="thumb">
+				@foreach (var item in Model.Pictures)
+				{
+					<li>
+						<a href="@Url.Action( "Get", "Picture", new { pictureId = item.Id} )" target="imgBox"><img src="@Url.Action( "Get", "Picture", new { pictureId = item.Id} )" width="120px" /></a>
+					</li>
+				}
+
+			</ul>
+
+
+		}
+
+		<div class="card shadow mb-4" style="margin-top: 15px;">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">@Model.Name</h6>
+			</div>
+			<div class="card-body">
+				<div class="form-group ">
+					Opis:
+					<div class="col-md-4 d-inline">
+						@Html.DisplayFor(model => model.Description)
+					</div>
+				</div>
+				<div class="form-group ">
+					Tip dogadaja:
+					<div class="col-md-4 d-inline">
+						@Html.DisplayFor(model => model.TypeEvent.Name)
+					</div>
+				</div>
+				<div class="form-group ">
+					Trajanje:
+					<div class="col-md-4 d-inline">
+						@Html.DisplayFor(model => model.TimeStart)
+					</div>
+					<div class="col-md-4 d-inline">
+						- @Html.DisplayFor(model => model.TimeEnd)
+					</div>
+				</div>
+				@if (Model.NoTickets == false)
+				{
+					if (Model.ThirdPartyTickets)
+					{
+						<div class="form-group ">
+							Dispacer ulaznica:
+							<div class="col-md-4 d-inline">
+								@Html.DisplayFor(model => model.ThirdPartyTicketsWeb)
+							</div>
+						</div>
+
+					}
+					else
+					{
+
+						<div class="form-group ">
+							Ulaznice:
+							<div class="col-md-4 d-inline">
+								<table>
+									<thead>
+										<tr>
+											<th>Naziv</th>
+											<th>Cijena</th>
+											<th>Diskonta cijena</th>
+											<th>Kolicina</th>
+											<th>Rezervacije</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach (var item in Model.Tickets)
+										{
+											<tr>
+												<td>
+													@item.Name
+												</td>
+												<td>@item.Price HRK</td>
+												<td>@item.DiscountPrice HRK</td>
+												<td>@item.TicketInventories.ElementAtOrDefault(0).StockQuantity</td>
+												<td>@item.TicketInventories.ElementAtOrDefault(0).ReservedQuantity</td>
+											</tr>
+										}
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+					}
+
+
+				}
+
+				<div class="form-group ">
+					Zanimljivo:
+					<div class="col-md-4 d-inline">
+						@Html.DisplayFor(model => model.Interesting)
+					</div>
+				</div>
+				<div class="form-group ">
+					Naglaseni oglas:
+					<div class="col-md-4 d-inline">
+						@Html.DisplayFor(model => model.Featured)
+					</div>
+				</div>
+
+				<div class="form-group ">
+					Web:
+					<div class="col-md-4 d-inline">
+						@Html.DisplayFor(model => model.WebUrl)
+					</div>
+				</div>
+				<div class="form-group ">
+					Telefon:
+					<div class="col-md-4 d-inline">
+						@Html.DisplayFor(model => model.Phone)
+					</div>
+				</div>
+				<div class="form-group ">
+					Email:
+					<div class="col-md-4 d-inline">
+						@Html.DisplayFor(model => model.Email)
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 mb-4">
+				<div class="card bg-primary text-white shadow">
+					<div class="card-body">
+						Wifi
+						@Html.DisplayFor(model => model.Wifi)
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<div class="card bg-primary text-white shadow">
+					<div class="card-body">
+						Parking
+						@Html.DisplayFor(model => model.Parking)
+
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<div class="card bg-primary text-white shadow">
+					<div class="card-body">
+						Pusenje
+						@Html.DisplayFor(model => model.Smoking)
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-xl-8 col-lg-7">
+				<div class="card shadow mb-4" style="margin-top: 15px;">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Lokacija</h6>
+					</div>
+					<div class="card-body">
+						<div class="form-group ">
+							Adresa:
+							<div class="col-md-4 d-inline">
+								@Html.DisplayFor(model => model.Location.Address)
+							</div>
+						</div>
+						<div class="form-group ">
+							Grad:
+							<div class="col-md-4 d-inline">
+								@Html.DisplayFor(model => model.Location.City)
+							</div>
+						</div>
+						<div class="form-group ">
+							Postanski broj:
+							<div class="col-md-4 d-inline">
+								@Html.DisplayFor(model => model.Location.PostalCode)
+							</div>
+						</div>
+						<div class="form-group ">
+							Drzava:
+							<div class="col-md-4 d-inline">
+								@Html.DisplayFor(model => model.Location.Country)
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			@if (Model.MoreDayEvent)
+			{
+				<div class="col-xl-4 col-lg-5">
+					<div class="card shadow mb-4" style="margin-top: 15px;">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">Vrijeme odrzavanja</h6>
+						</div>
+						<div class="card-body">
+
+							<table class="w-100 h-auto ">
+								<thead>
+									<tr>
+										<th>Datum</th>
+										<th>Dan</th>
+										<th>Vrijeme</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model.EventDates)
+									{
+										<tr>
+											<td>@item.DateStart.ToShortDateString()</td>
+											<td>@item.DateStart.DayOfWeek.ToString()</td>
+											<td>@item.DateStart.ToString("hh:mm") - @item.DateEnd.ToString("hh:mm")</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			}
+		
+
+
+		</div>
+			<p>
+				@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+				@Html.ActionLink("Back to List", "Index")
+			</p>

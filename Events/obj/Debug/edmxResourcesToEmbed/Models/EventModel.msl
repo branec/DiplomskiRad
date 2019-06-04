@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EventsModelStoreContainer" CdmEntityContainer="EventsEntities">
+    <EntitySetMapping Name="CreditCards">
+      <EntityTypeMapping TypeName="EventsModel.CreditCard">
+        <MappingFragment StoreEntitySet="CreditCard">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+          <ScalarProperty Name="ExpDate" ColumnName="ExpDate" />
+          <ScalarProperty Name="CVV" ColumnName="CVV" />
+          <ScalarProperty Name="NameSurname" ColumnName="NameSurname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="EventsModel.Event">
+        <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdLocation" ColumnName="IdLocation" />
+          <ScalarProperty Name="IdOrganisation" ColumnName="IdOrganisation" />
+          <ScalarProperty Name="IdTypeEvent" ColumnName="IdTypeEvent" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TimeStart" ColumnName="TimeStart" />
+          <ScalarProperty Name="TimeEnd" ColumnName="TimeEnd" />
+          <ScalarProperty Name="Wifi" ColumnName="Wifi" />
+          <ScalarProperty Name="Parking" ColumnName="Parking" />
+          <ScalarProperty Name="Smoking" ColumnName="Smoking" />
+          <ScalarProperty Name="ThirdPartyTickets" ColumnName="ThirdPartyTickets" />
+          <ScalarProperty Name="ThirdPartyTicketsWeb" ColumnName="ThirdPartyTicketsWeb" />
+          <ScalarProperty Name="NoTickets" ColumnName="NoTickets" />
+          <ScalarProperty Name="Interesting" ColumnName="Interesting" />
+          <ScalarProperty Name="Featured" ColumnName="Featured" />
+          <ScalarProperty Name="WebUrl" ColumnName="WebUrl" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="MoreDayEvent" ColumnName="MoreDayEvent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventDates">
+      <EntityTypeMapping TypeName="EventsModel.EventDate">
+        <MappingFragment StoreEntitySet="EventDate">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdEvent" ColumnName="IdEvent" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="EventsModel.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="EventsModel.Message">
+        <MappingFragment StoreEntitySet="Message">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Message1" ColumnName="Message" />
+          <ScalarProperty Name="IdEvent" ColumnName="IdEvent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organisations">
+      <EntityTypeMapping TypeName="EventsModel.Organisation">
+        <MappingFragment StoreEntitySet="Organisation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdTypeOrganisation" ColumnName="IdTypeOrganisation" />
+          <ScalarProperty Name="IdLocation" ColumnName="IdLocation" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Web" ColumnName="Web" />
+          <ScalarProperty Name="PerDayWorkingHours" ColumnName="PerDayWorkingHours" />
+          <ScalarProperty Name="WorkingHoursStart" ColumnName="WorkingHoursStart" />
+          <ScalarProperty Name="WorkingHoursEnd" ColumnName="WorkingHoursEnd" />
+          <ScalarProperty Name="WeekWorkingHoursStart" ColumnName="WeekWorkingHoursStart" />
+          <ScalarProperty Name="WeekWorkingHoursEnd" ColumnName="WeekWorkingHoursEnd" />
+          <ScalarProperty Name="SatWorkingHoursStart" ColumnName="SatWorkingHoursStart" />
+          <ScalarProperty Name="SatWorkingHoursEnd" ColumnName="SatWorkingHoursEnd" />
+          <ScalarProperty Name="SunWorkingHoursStart" ColumnName="SunWorkingHoursStart" />
+          <ScalarProperty Name="SunWorkingHoursEnd" ColumnName="SunWorkingHoursEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReviewEvents">
+      <EntityTypeMapping TypeName="EventsModel.ReviewEvent">
+        <MappingFragment StoreEntitySet="ReviewEvent">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Stars" ColumnName="Stars" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="IdEvent" ColumnName="IdEvent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReviewOrganisations">
+      <EntityTypeMapping TypeName="EventsModel.ReviewOrganisation">
+        <MappingFragment StoreEntitySet="ReviewOrganisation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StarsService" ColumnName="StarsService" />
+          <ScalarProperty Name="StarsAmbience" ColumnName="StarsAmbience" />
+          <ScalarProperty Name="StarsCleanless" ColumnName="StarsCleanless" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="IdOrganisation" ColumnName="IdOrganisation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="EventsModel.Ticket">
+        <MappingFragment StoreEntitySet="Ticket">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="DiscountPrice" ColumnName="DiscountPrice" />
+          <ScalarProperty Name="IdEvent" ColumnName="IdEvent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TicketInventories">
+      <EntityTypeMapping TypeName="EventsModel.TicketInventory">
+        <MappingFragment StoreEntitySet="TicketInventory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdTicket" ColumnName="IdTicket" />
+          <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+          <ScalarProperty Name="ReservedQuantity" ColumnName="ReservedQuantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TicketReservations">
+      <EntityTypeMapping TypeName="EventsModel.TicketReservation">
+        <MappingFragment StoreEntitySet="TicketReservation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdTicket" ColumnName="IdTicket" />
+          <ScalarProperty Name="IdCreditCard" ColumnName="IdCreditCard" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeEvents">
+      <EntityTypeMapping TypeName="EventsModel.TypeEvent">
+        <MappingFragment StoreEntitySet="TypeEvent">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeOrganisations">
+      <EntityTypeMapping TypeName="EventsModel.TypeOrganisation">
+        <MappingFragment StoreEntitySet="TypeOrganisation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
